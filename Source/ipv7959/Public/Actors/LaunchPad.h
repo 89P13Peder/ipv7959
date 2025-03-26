@@ -4,20 +4,31 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "LaunchPath.generated.h"
+#include "LaunchPad.generated.h"
+
+class UBoxComponent;
 
 UCLASS()
-class IPV7959_API ALaunchPath : public AActor
+class IPV7959_API ALaunchPad : public AActor
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	ALaunchPath();
+	ALaunchPad();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* MeshComp;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UBoxComponent* OverlapComp;
+
+	void OverlapLaunchPad();
+	
 
 public:
 	// Called every frame
