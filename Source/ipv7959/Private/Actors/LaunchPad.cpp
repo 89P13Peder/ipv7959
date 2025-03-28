@@ -4,6 +4,7 @@
 #include "ipv7959/Public/Actors/LaunchPad.h"
 
 #include "Components/BoxComponent.h"
+#include "GameFramework/Character.h"
 
 // Sets default values
 ALaunchPad::ALaunchPad()
@@ -18,7 +19,16 @@ ALaunchPad::ALaunchPad()
 void ALaunchPad::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	OverlapComp->OnComponentBeginOverlap.AddDynamic(this, &ALaunchPad::OverlapLaunchPad);
+}
+
+void ALaunchPad::OverlapLaunchPad(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	ACharacter* MyCharacter = Cast<ACharacter>(OtherActor);
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Overlap"));
+	}
 }
 
 // Called every frame
