@@ -46,7 +46,8 @@ class Aipv7959Character : public ACharacter
 
 public:
 	Aipv7959Character();
-	
+	/** Property replication */     
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 protected:
 
@@ -55,7 +56,21 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
+
+protected:
+ 
+	/** The player's maximum health. This is the highest value of their health can be. This value is a value of the player's health, which starts at when spawned.*/
+	UPROPERTY(EditDefaultsOnly, Category = "Health")
+	float MaxHealth;
+ 
+	/** The player's current health. When reduced to 0, they are considered dead.*/
+	UPROPERTY(ReplicatedUsing = OnRep_CurrentHealth)
+	float CurrentHealth;
+ 
+	/** RepNotify for changes made to current health.*/
+	UFUNCTION()
+	void OnRep_CurrentHealth();
+	void OnHealthUpdate();
 
 protected:
 
