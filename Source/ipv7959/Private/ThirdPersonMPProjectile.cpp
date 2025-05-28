@@ -86,12 +86,6 @@ void AThirdPersonMPProjectile::OnProjectileImpact(UPrimitiveComponent* HitCompon
 	Destroy();
 }
 
-void AThirdPersonMPProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	DOREPLIFETIME(AThirdPersonMPCharacter, CurrentHealth);
-}
 
 // Called every frame
 void AThirdPersonMPProjectile::Tick(float DeltaTime)
