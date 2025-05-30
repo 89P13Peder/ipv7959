@@ -89,6 +89,7 @@ protected:
 	/** RepNotify for changes made to current health.*/
 	UFUNCTION()
 	void OnRep_CurrentHealth();
+	UFUNCTION(BlueprintNativeEvent, Category="Health", Category="Health")
 	void OnHealthUpdate();
 
 protected:

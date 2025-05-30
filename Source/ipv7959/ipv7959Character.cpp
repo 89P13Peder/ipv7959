@@ -79,7 +79,7 @@ void Aipv7959Character::OnRep_CurrentHealth()
 	OnHealthUpdate();
 }
 
-void Aipv7959Character::OnHealthUpdate()
+void Aipv7959Character::OnHealthUpdate_Implementation()
 {
 	//Client-specific functionality
 	if (IsLocallyControlled())
