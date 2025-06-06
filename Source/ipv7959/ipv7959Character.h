@@ -68,6 +68,16 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	float TakeDamage( float DamageTaken, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser ) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing=OnRep_AmmoLeft, Category="Weapon")
+	int32 ammoLeft;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon")
+	int32 maxAmmo;
+
+	// Notificación al replicar ammoLeft
+	UFUNCTION()
+	void OnRep_AmmoLeft();
+	
 protected:
 
 	/** Called for movement input */
@@ -91,6 +101,9 @@ protected:
 	void OnRep_CurrentHealth();
 	UFUNCTION(BlueprintNativeEvent, Category="Health", Category="Health")
 	void OnHealthUpdate();
+
+	UFUNCTION(BlueprintNativeEvent, Category="Ammo")
+	void OnAmmoUpdate();
 
 protected:
 

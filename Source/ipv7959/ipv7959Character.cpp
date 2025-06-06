@@ -62,6 +62,10 @@ Aipv7959Character::Aipv7959Character()
 	//Initialize fire rate
 	FireRate = 0.25f;
 	bIsFiringWeapon = false;
+
+	//Initialize ammo counter: 
+	maxAmmo = 5;
+	ammoLeft = maxAmmo;
 }
 
 void Aipv7959Character::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -69,6 +73,8 @@ void Aipv7959Character::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	//Replicate current health.
 	DOREPLIFETIME(Aipv7959Character, CurrentHealth);
+
+	DOREPLIFETIME(Aipv7959Character, ammoLeft);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -108,6 +114,11 @@ void Aipv7959Character::OnHealthUpdate_Implementation()
 	*/
 }
 
+void Aipv7959Character::OnAmmoUpdate_Implementation()
+{
+	
+}
+
 void Aipv7959Character::SetCurrentHealth(float healthValue)
 {
 	if (GetLocalRole() == ROLE_Authority)
@@ -122,6 +133,7 @@ float Aipv7959Character::TakeDamage(float DamageTaken, struct FDamageEvent const
 	SetCurrentHealth(damageApplied);
 	return damageApplied;
 }
+
 void Aipv7959Character::NotifyControllerChanged()
 {
 	Super::NotifyControllerChanged();
@@ -163,6 +175,10 @@ void Aipv7959Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 }
 
 
+void Aipv7959Character::OnRep_AmmoLeft()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Ammo updated to: %d"), ammoLeft);
+}
 
 void Aipv7959Character::Move(const FInputActionValue& Value)
 {
@@ -217,12 +233,26 @@ void Aipv7959Character::StopFire()
 
 void Aipv7959Character::HandleFire_Implementation()
 {
-	FVector spawnLocation = GetActorLocation() + ( GetActorRotation().Vector()  * 100.0f ) + (GetActorUpVector() * 50.0f);
-	FRotator spawnRotation = GetActorRotation();
+	if (ammoLeft > 0)
+	{
+		FVector spawnLocation = GetActorLocation() + ( GetActorRotation().Vector()  * 100.0f ) + (GetActorUpVector() * 50.0f);
+		FRotator spawnRotation = GetActorRotation();
 
-	FActorSpawnParameters spawnParameters;
-	spawnParameters.Instigator = GetInstigator();
-	spawnParameters.Owner = this;
+		FActorSpawnParameters spawnParameters;
+		spawnParameters.Instigator = GetInstigator();
+		spawnParameters.Owner = this;
 
-	AThirdPersonMPProjectile* spawnedProjectile = GetWorld()->SpawnActor<AThirdPersonMPProjectile>(spawnLocation, spawnRotation, spawnParameters);
+		AThirdPersonMPProjectile* spawnedProjectile = GetWorld()->SpawnActor<AThirdPersonMPProjectile>(spawnLocation, spawnRotation, spawnParameters);
+
+		if (GetLocalRole() == ROLE_Authority)
+		{
+			ammoLeft--;
+			OnRep_AmmoLeft();
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No ammo left to fire!"));
+	}
+	
 }
