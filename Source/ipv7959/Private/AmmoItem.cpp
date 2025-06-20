@@ -39,14 +39,6 @@ void AAmmoItem::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 	
-	Aipv7959Character* MyCharacter = Cast<Aipv7959Character>(OtherActor);
-	if (MyCharacter)
-	{
-		// Llamamos a la función para recargar la munición
-		MyCharacter->ReloadAmmo();
-
-		// Destruir el pickup para que desaparezca del nivel
-		Destroy();
-	}
+	
 }
 

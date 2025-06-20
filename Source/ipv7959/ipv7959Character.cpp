@@ -244,11 +244,8 @@ void Aipv7959Character::HandleFire_Implementation()
 
 		AThirdPersonMPProjectile* spawnedProjectile = GetWorld()->SpawnActor<AThirdPersonMPProjectile>(spawnLocation, spawnRotation, spawnParameters);
 
-		if (GetLocalRole() == ROLE_Authority)
-		{
-			ammoLeft--;
-			OnRep_AmmoLeft();
-		}
+		ammoLeft--;
+		OnRep_AmmoLeft();
 	}
 	else
 	{

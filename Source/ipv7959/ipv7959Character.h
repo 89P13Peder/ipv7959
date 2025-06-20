@@ -74,7 +74,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon")
 	int32 maxAmmo;
 
-	// Notificación al replicar ammoLeft
+	UFUNCTION(BlueprintPure, Category="Health")
+	FORCEINLINE float GetAmmoLeft() const { return CurrentHealth; }
+
+	UFUNCTION(BlueprintPure, Category="Health")
+	FORCEINLINE float GetMaxAmmo() const { return CurrentHealth; }
+	
 	UFUNCTION()
 	void OnRep_AmmoLeft();
 	
