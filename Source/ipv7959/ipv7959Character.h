@@ -82,6 +82,12 @@ public:
 	
 	UFUNCTION()
 	void OnRep_AmmoLeft();
+
+	UFUNCTION(BlueprintCallable)
+	void OpenLobby();
+
+	UFUNCTION(BlueprintCallable)
+	void CallOpenLevel(const FString& IPAdress);
 	
 protected:
 

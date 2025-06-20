@@ -13,6 +13,7 @@
 #include "Net/UnrealNetwork.h"
 #include "Engine/Engine.h"
 #include "ThirdPersonMPProjectile.h"
+#include "Kismet/GameplayStatics.h"
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
@@ -179,6 +180,21 @@ void Aipv7959Character::OnRep_AmmoLeft()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Ammo updated to: %d"), ammoLeft);
 }
+
+void Aipv7959Character::OpenLobby()
+{
+	UWorld* World = GetWorld();
+	
+	if (!World) return;
+
+	World->ServerTravel("Game/Lobby.Lobby?listen");
+}
+
+void Aipv7959Character::CallOpenLevel(const FString& IPAdress)
+{
+	UGameplayStatics::OpenLevel(this, *IPAdress);
+}
+
 
 void Aipv7959Character::Move(const FInputActionValue& Value)
 {
