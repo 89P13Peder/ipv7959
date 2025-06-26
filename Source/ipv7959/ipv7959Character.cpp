@@ -67,6 +67,8 @@ Aipv7959Character::Aipv7959Character()
 	//Initialize ammo counter: 
 	maxAmmo = 5;
 	ammoLeft = maxAmmo;
+
+	GetMesh()->SetIsReplicated(true);
 }
 
 void Aipv7959Character::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -98,6 +100,12 @@ void Aipv7959Character::OnHealthUpdate_Implementation()
 		{
 			FString deathMessage = FString::Printf(TEXT("You have been killed."));
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, deathMessage);
+
+			APlayerController* PC = Cast<APlayerController>(GetController());
+			if (PC)
+			{
+				DisableInput(PC);
+			}
 		}
 	}
  
@@ -187,12 +195,19 @@ void Aipv7959Character::OpenLobby()
 	
 	if (!World) return;
 
-	World->ServerTravel("Game/Lobby.Lobby?listen");
+	World->ServerTravel("/Game/ThirdPerson/Maps/Lobby1?listen");
 }
 
 void Aipv7959Character::CallOpenLevel(const FString& IPAdress)
 {
 	UGameplayStatics::OpenLevel(this, *IPAdress);
+}
+
+void Aipv7959Character::CallClientTravel(const FString& IPAdress)
+{
+	APlayerController* PlayerController = GetGameInstance()->GetFirstLocalPlayerController();
+	if (PlayerController)
+		PlayerController->ClientTravel(IPAdress, TRAVEL_Absolute);
 }
 
 

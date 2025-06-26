@@ -89,6 +89,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void CallOpenLevel(const FString& IPAdress);
 	
+	UFUNCTION(BlueprintCallable)
+	void CallClientTravel(const FString& IPAdress);
+	
 protected:
 
 	/** Called for movement input */
