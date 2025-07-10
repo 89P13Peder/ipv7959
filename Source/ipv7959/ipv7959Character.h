@@ -91,6 +91,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void CallClientTravel(const FString& IPAdress);
+
+	UPROPERTY(BlueprintReadOnly, Category="Gameplay")
+	bool bIsCarringObjective;
 	
 protected:
 

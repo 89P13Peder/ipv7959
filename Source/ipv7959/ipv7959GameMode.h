@@ -13,6 +13,11 @@ class Aipv7959GameMode : public AGameModeBase
 
 public:
 	Aipv7959GameMode();
+
+	void CompleteMision(APawn* Pawn);
+
+	UFUNCTION(BlueprintImplementableEvent, Category="GameMode")
+	void OnMisionCompleted(APawn* Pawn);
 };
 
 

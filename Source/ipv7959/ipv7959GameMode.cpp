@@ -13,3 +13,12 @@ Aipv7959GameMode::Aipv7959GameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 }
+
+void Aipv7959GameMode::CompleteMision(APawn* Pawn)
+{
+	if (Pawn == nullptr) return;
+	
+	OnMisionCompleted(Pawn);
+	Pawn->DisableInput(nullptr);
+	
+}
