@@ -18,6 +18,11 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category="GameMode")
 	void OnMisionCompleted(APawn* Pawn);
+
+protected:
+	UPROPERTY(EditDefaultsOnly, Category="GameMode")
+	TSubclassOf<AActor> SpectatorViewClass;
+	
 };
 
 

@@ -10,6 +10,8 @@
 // Sets default values
 AObjetiveActor::AObjetiveActor()
 {
+
+	bReplicates = true;
 	PrimaryActorTick.bCanEverTick = true;
 
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));

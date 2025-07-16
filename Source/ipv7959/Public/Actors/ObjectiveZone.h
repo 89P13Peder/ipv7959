@@ -7,6 +7,7 @@
 #include "ObjectiveZone.generated.h"
 
 class UBoxComponent;
+class UDecalComponent;
 UCLASS()
 class IPV7959_API AObjectiveZone : public AActor
 {
@@ -30,6 +31,7 @@ protected:
 	void HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 						int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 
+	UPROPERTY(VisibleAnywhere, Category="Component")
+	UDecalComponent* DecalComp;
 	
-
 };
