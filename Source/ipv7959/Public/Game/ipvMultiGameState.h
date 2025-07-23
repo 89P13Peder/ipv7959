@@ -10,10 +10,12 @@
  * 
  */
 UCLASS()
-class IPV7959_API AipvMultiGameState : public AGameState
+class IPV7959_API AipvMultiGameState : public AGameStateBase
 {
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(NetMulticast, Reliable)
 	void MulticastOnMisionCompleted(APawn* InstigatorPawn, bool bWasSuccesful); //instigator es el responsable de haber hecho una acción
+
 };
