@@ -122,6 +122,7 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, Category="Ammo")
 	void OnAmmoUpdate();
 
+
 protected:
 
 	virtual void NotifyControllerChanged() override;

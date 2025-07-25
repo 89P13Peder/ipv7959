@@ -104,7 +104,7 @@ void Aipv7959Character::OnHealthUpdate_Implementation()
 			APlayerController* PC = Cast<APlayerController>(GetController());
 			if (PC)
 			{
-				//DisableInput(PC);
+				DisableInput(PC);
 			}
 		}
 	}
